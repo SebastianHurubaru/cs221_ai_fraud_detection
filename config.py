@@ -1,9 +1,9 @@
 import logging
 import locale
 
-logging.basicConfig(level=logging.INFO,
+logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
-                    datefmt='%m-%d %H:%M')
+                    datefmt='%m-%d %H:%M:%S')
 
 # input_dir = 'input-dev'
 

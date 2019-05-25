@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/ai-fraud-detection.iml" filepath="$PROJECT_DIR$/.idea/ai-fraud-detection.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../Homeworks/blackjack/.idea/blackjack.iml" filepath="$PROJECT_DIR$/../../Homeworks/blackjack/.idea/blackjack.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../../Homeworks/pacman/.idea/pacman.iml" filepath="$PROJECT_DIR$/../../Homeworks/pacman/.idea/pacman.iml" />
     </modules>
   </component>
 </project>

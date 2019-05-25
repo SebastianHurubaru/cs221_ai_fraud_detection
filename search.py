@@ -3,11 +3,26 @@
 """
 Created on Sun May 19 17:58:28 2019
 
-@author: francoischesnay
+@author: francoischesnay, sebastianhurubaru
 """
 
 from collections import defaultdict
+from config import *
+from rest import RESTClient
+import json
+from jsonpath_ng import jsonpath, parse
 
+
+API_KEY="0K5Fn3TguQ_1OdFoSuzQREVG7aee1OKSYS5Mj5ns"
+MAX_REQ_FOR_KEY=600
+TIMEOUT=600 #seconds
+BASE_URL="https://api.companieshouse.gov.uk/search"
+
+
+restClient = RESTClient(API_KEY, MAX_REQ_FOR_KEY, TIMEOUT, BASE_URL)
+
+
+log = logging.getLogger('search')
 
 
 # Initialize global variable frontier with [(‘Cascado AG’,’Panama’)]
@@ -176,5 +191,8 @@ def getOfficers(entity):
         listOfOfficersAndCountries.append((officer,getcountry(officer)))
     # return a list of tuple [(officer1, xountry1), (officer2, xountry2)]
     return listOfOfficersAndCountries
+
+
+
 
 
