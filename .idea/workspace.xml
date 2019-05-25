@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2285cbbe-0b62-4e1a-ab2f-d4124421e526" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ai-fraud-detection.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ai-fraud-detection.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/features.csv" beforeDir="false" afterPath="$PROJECT_DIR$/output/features.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recursiveSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/recursiveSearch.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/search.py" beforeDir="false" afterPath="$PROJECT_DIR$/search.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statement_downloader/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/statement_downloader/parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statement_downloader/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/statement_downloader/requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,40 +27,55 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/search.py">
+        <entry file="file://$PROJECT_DIR$/recursiveSearch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="30" column="24" lean-forward="true" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="24" />
+            <state relative-caret-position="204">
+              <caret line="12" column="9" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
               <folding>
-                <element signature="e#137#172#0" expanded="true" />
+                <element signature="e#0#20#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/backtrackSearch.py">
+        <entry file="file://$PROJECT_DIR$/keras_neural_network.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="752">
-              <caret line="67" column="14" selection-start-line="67" selection-start-column="14" selection-end-line="67" selection-end-column="14" />
+            <state relative-caret-position="578">
+              <caret line="34" column="73" selection-start-line="34" selection-start-column="54" selection-end-line="34" selection-end-column="73" />
+              <folding>
+                <element signature="e#0#42#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/ssl.py">
+        <entry file="file://$PROJECT_DIR$/pscCorrection.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="633" selection-start-line="633" selection-end-line="633" />
+            <state relative-caret-position="275">
+              <caret line="23" selection-start-line="23" selection-end-line="23" />
+              <folding>
+                <element signature="e#0#16#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/codecs.py">
+        <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/json/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="308" selection-start-line="308" selection-end-line="308" />
+            <state relative-caret-position="369">
+              <caret line="230" selection-start-line="230" selection-end-line="230" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/database.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="442">
+              <caret line="26" selection-start-line="26" selection-end-line="26" />
             </state>
           </provider>
         </entry>
@@ -76,7 +83,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/PycharmProjects/numpy/venv36/Lib/site-packages/jsonpath_ng/jsonpath.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
+            <state relative-caret-position="4250">
               <caret line="254" selection-start-line="254" selection-end-line="254" />
             </state>
           </provider>
@@ -101,21 +108,9 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="39" selection-start-line="3" selection-start-column="39" selection-end-line="3" selection-end-column="39" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../../Homeworks/pacman/grader.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-14">
+            <state relative-caret-position="2907">
               <caret line="171" column="71" selection-start-line="171" selection-start-column="71" selection-end-line="171" selection-end-column="71" />
             </state>
           </provider>
@@ -149,6 +144,8 @@
       <find>runGames</find>
       <find>getcountry</find>
       <find>getPSC</find>
+      <find>getCompanyOfficers</find>
+      <find>state,emt</find>
     </findStrings>
     <replaceStrings>
       <replace>/</replace>
@@ -167,16 +164,20 @@
         <option value="$PROJECT_DIR$/../../Homeworks/pacman/weights_linear_regression_dump.py" />
         <option value="$PROJECT_DIR$/../../Homeworks/pacman/submission.py" />
         <option value="$PROJECT_DIR$/config.py" />
-        <option value="$PROJECT_DIR$/search.py" />
         <option value="$PROJECT_DIR$/rest.py" />
         <option value="$PROJECT_DIR$/backtrackSearch.py" />
+        <option value="$PROJECT_DIR$/search.py" />
+        <option value="$PROJECT_DIR$/database.py" />
+        <option value="$PROJECT_DIR$/recursiveSearch.py" />
+        <option value="$PROJECT_DIR$/pscCorrection.py" />
+        <option value="$PROJECT_DIR$/keras_neural_network.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="5749" />
-    <option name="width" value="1940" />
-    <option name="height" value="2048" />
+    <option name="x" value="5748" />
+    <option name="width" value="1941" />
+    <option name="height" value="2049" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -200,16 +201,17 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/data" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Studies\Stanford\CS221-AI - Principles and Techniques\Homeworks\pacman" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Studies\Stanford\CS221-AI - Principles and Techniques\Final Project\ai-fraud-detection" />
       <recent name="D:\Studies\Stanford\CS221-AI - Principles and Techniques\Homeworks\pacman" />
       <recent name="D:\Studies\Stanford\CS221-AI - Principles and Techniques\Final Project\ai-fraud-detection\input" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Studies\Stanford\CS221-AI - Principles and Techniques\Homeworks\pacman" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -224,7 +226,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.backtrackSearch">
+  <component name="RunManager" selected="Python.pscCorrection">
     <configuration name="backtrackSearch" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="ai-fraud-detection" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -237,7 +239,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/backtrackSearch.py" />
+      <option name="SCRIPT_NAME" value="D:\Studies\Stanford\CS221-AI - Principles and Techniques\Final Project\ai-fraud-detection\recursiveSearch.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -246,7 +248,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="extractor" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="database" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="ai-fraud-detection" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -258,7 +260,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/extractor.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/database.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -267,20 +269,41 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="pacman" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="pacman" />
+    <configuration name="pscCorrection" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="ai-fraud-detection" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Users\sebas\PycharmProjects\numpy\venv27\Scripts\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../../Homeworks/pacman" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../../Homeworks/pacman/pacman.py" />
-      <option name="PARAMETERS" value="-l smallClassic -p ExpectimaxAgent -a evalFn=better,depth=2 -q -n 100 -c --timeout=30000" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pscCorrection.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="recursiveSearch" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="ai-fraud-detection" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/recursiveSearch.py" />
+      <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -309,41 +332,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="search" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="ai-fraud-detection" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/search.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
-      <item itemvalue="Python.extractor" />
-      <item itemvalue="Python.pacman" />
-      <item itemvalue="Python.search" />
       <item itemvalue="Python.rest" />
       <item itemvalue="Python.backtrackSearch" />
+      <item itemvalue="Python.database" />
+      <item itemvalue="Python.recursiveSearch" />
+      <item itemvalue="Python.pscCorrection" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.pscCorrection" />
+        <item itemvalue="Python.recursiveSearch" />
+        <item itemvalue="Python.database" />
         <item itemvalue="Python.backtrackSearch" />
         <item itemvalue="Python.rest" />
-        <item itemvalue="Python.search" />
-        <item itemvalue="Python.pacman" />
-        <item itemvalue="Python.extractor" />
       </list>
     </recent_temporary>
   </component>
@@ -362,18 +364,19 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="3833" y="-7" width="2575" height="1373" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.18474375" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.18633294" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="0" weight="0.32930756" />
-      <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.50019866" side_tool="true" weight="0.25201288" />
-      <window_info anchor="bottom" id="Python Console" order="2" weight="0.32930756" />
+      <window_info anchor="bottom" id="Terminal" order="0" sideWeight="0.49900675" weight="0.32930756" />
+      <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.50258243" side_tool="true" visible="true" weight="0.32930756" />
+      <window_info anchor="bottom" id="Python Console" order="2" sideWeight="0.49940404" weight="0.32930756" />
       <window_info anchor="bottom" id="Message" order="3" />
       <window_info anchor="bottom" id="Find" order="4" weight="0.32930756" />
       <window_info anchor="bottom" id="Version Control" order="5" />
-      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.49980134" weight="0.32930756" />
-      <window_info active="true" anchor="bottom" id="Debug" order="7" sideWeight="0.49980134" visible="true" weight="0.25201288" />
+      <window_info anchor="bottom" id="Run" order="6" sideWeight="0.49741757" visible="true" weight="0.32930756" />
+      <window_info anchor="bottom" id="Debug" order="7" sideWeight="0.45411205" weight="0.31239936" />
       <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="10" />
@@ -418,9 +421,29 @@
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/backtrackSearch.py</url>
-          <line>20</line>
+          <url>file://$PROJECT_DIR$/recursiveSearch.py</url>
+          <line>22</line>
           <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/recursiveSearch.py</url>
+          <line>79</line>
+          <option name="timeStamp" value="38" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/database.py</url>
+          <line>10</line>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/database.py</url>
+          <line>20</line>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/pscCorrection.py</url>
+          <line>26</line>
+          <option name="timeStamp" value="47" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -535,13 +558,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/json/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="295" selection-start-line="295" selection-end-line="295" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/extractor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -562,34 +578,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../../Homeworks/pacman/grader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-14">
-          <caret line="171" column="71" selection-start-line="171" selection-start-column="71" selection-end-line="171" selection-end-column="71" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/search.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" column="24" lean-forward="true" selection-start-line="30" selection-start-column="14" selection-end-line="30" selection-end-column="24" />
-          <folding>
-            <element signature="e#137#172#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharmCE2019.1/system/python_stubs/-1501498359/builtins.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4840">
           <caret line="4957" column="8" selection-start-line="4957" selection-start-column="8" selection-end-line="4957" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/ssl.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10472">
+          <caret line="633" selection-start-line="633" selection-end-line="633" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/codecs.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5236">
+          <caret line="308" selection-start-line="308" selection-end-line="308" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/PycharmProjects/numpy/venv36/Lib/site-packages/jsonpath_ng/jsonpath.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4250">
+          <caret line="254" selection-start-line="254" selection-end-line="254" />
         </state>
       </provider>
     </entry>
@@ -600,24 +613,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/PycharmProjects/numpy/venv36/Lib/site-packages/jsonpath_ng/jsonpath.py">
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="254" selection-start-line="254" selection-end-line="254" />
+        <state relative-caret-position="289">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/codecs.py">
+    <entry file="file://$PROJECT_DIR$/../../Homeworks/pacman/grader.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="308" selection-start-line="308" selection-end-line="308" />
+        <state relative-caret-position="2907">
+          <caret line="171" column="71" selection-start-line="171" selection-start-column="71" selection-end-line="171" selection-end-column="71" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/ssl.py">
+    <entry file="file://$PROJECT_DIR$/search.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="633" selection-start-line="633" selection-end-line="633" />
+        <state relative-caret-position="272">
+          <caret line="16" column="19" lean-forward="true" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+          <folding>
+            <element signature="e#137#172#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -631,10 +647,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/backtrackSearch.py">
+    <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python36/Lib/json/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="752">
-          <caret line="67" column="14" selection-start-line="67" selection-start-column="14" selection-end-line="67" selection-end-column="14" />
+        <state relative-caret-position="369">
+          <caret line="230" selection-start-line="230" selection-end-line="230" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/database.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pscCorrection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/recursiveSearch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="9" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/keras_neural_network.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="578">
+          <caret line="34" column="73" selection-start-line="34" selection-start-column="54" selection-end-line="34" selection-end-column="73" />
+          <folding>
+            <element signature="e#0#42#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
