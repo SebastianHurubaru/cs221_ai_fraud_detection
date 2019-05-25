@@ -1,6 +1,4 @@
 from config import *
-from database import *
-
 
 log = logging.getLogger('backtrackSearch')
 
@@ -9,8 +7,8 @@ import json
 from jsonpath_ng import jsonpath, parse
 
 API_KEY="0K5Fn3TguQ_1OdFoSuzQREVG7aee1OKSYS5Mj5ns"
-MAX_REQ_FOR_KEY=550
-TIMEOUT=300 #seconds
+MAX_REQ_FOR_KEY=600
+TIMEOUT=600 #seconds
 BASE_URL="https://api.companieshouse.gov.uk"
 
 visited_officers = []
@@ -53,9 +51,6 @@ def searchTroikaCompany(company_number, K):
     companyOfficers = getCompanyOfficers(company_number)
     log.debug(companyOfficers)
 
-    # insert in the database
-    insertCompany(company_number, json.dumps(companyProfile), json.dumps(companyOfficers), json.dumps(pscs))
-
     # for each officer call searchTroikaOfficer(entity, K-1)
     officer_ids = [officerLink.value.split('/')[2] for officerLink in parse('$.items[*].links.officer.appointments').find(companyOfficers)]
     for officer_id in officer_ids:
@@ -67,7 +62,7 @@ def searchTroikaOfficer(officer_id, K):
 
     if K is 0: return
 
-    if officer_id in visited_officers:
+    if officer_id in visited_companies:
         return
 
     visited_officers.append(officer_id)
@@ -75,9 +70,6 @@ def searchTroikaOfficer(officer_id, K):
     # get the appointments
     appointments = getOfficerAppointments(officer_id)
     log.debug(appointments)
-
-    # insert in the database
-    insertOfficer(officer_id, json.dumps(appointments))
 
     # for each appointment get the company name and call searchTroikaCompany(company, K):
     appointments_company_numbers = parse('$.items[*].appointed_to.company_number').find(appointments)
@@ -105,7 +97,7 @@ def getCompanyProfile(company_number):
 
 def getCompanyPersonsWithSignificantControl(company_number):
 
-    response = restClient.doRequest('/company/' + company_number + '/persons-with-significant-control', None)
+    response = restClient.doRequest('/company/' + company_number + '/persons-with-significant-control-statements', None)
     return response
 
 
@@ -130,4 +122,4 @@ def getOfficerAppointments(officer_id):
     return response
 
 
-searchTroikaEntities('Cascado AG', 1)
+searchTroikaEntities('Cascado AG', 2)

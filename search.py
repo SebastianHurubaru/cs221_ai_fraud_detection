@@ -15,7 +15,7 @@ from jsonpath_ng import jsonpath, parse
 
 API_KEY="0K5Fn3TguQ_1OdFoSuzQREVG7aee1OKSYS5Mj5ns"
 MAX_REQ_FOR_KEY=600
-TIMEOUT=300 #seconds
+TIMEOUT=600 #seconds
 BASE_URL="https://api.companieshouse.gov.uk/search"
 
 
