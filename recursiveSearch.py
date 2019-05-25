@@ -8,31 +8,37 @@ from rest import RESTClient
 import json
 from jsonpath_ng import jsonpath, parse
 
-API_KEY="0K5Fn3TguQ_1OdFoSuzQREVG7aee1OKSYS5Mj5ns"
+
+
 MAX_REQ_FOR_KEY=550
+API_KEYS= [("0K5Fn3TguQ_1OdFoSuzQREVG7aee1OKSYS5Mj5ns", MAX_REQ_FOR_KEY),
+           ("CTdeE4B4nqb3vuip2jWQ4oMbajwC8uvlu-tSNLSs", MAX_REQ_FOR_KEY),
+           ("QAABDOuTedqG6Y3sS70242hguHxX8lXJ8bWuXjNs", MAX_REQ_FOR_KEY),
+           ("ieGbtv4XnrDE7ZsfrXlVatpW8K7z0S_hsdbpd3Wq", MAX_REQ_FOR_KEY)]
+
 TIMEOUT=300 #seconds
 BASE_URL="https://api.companieshouse.gov.uk"
 
 visited_officers = []
 visited_companies = []
 
-restClient = RESTClient(API_KEY, MAX_REQ_FOR_KEY, TIMEOUT, BASE_URL)
+restClient = RESTClient(API_KEYS, MAX_REQ_FOR_KEY, TIMEOUT, BASE_URL)
 
 def searchTroikaEntities(entity, K):
 
     is_company, company_numbers = isCompany(entity)
     if is_company is True:
         for company_number in company_numbers:
-            searchTroikaCompany(company_number, K)
+            searchCompany(company_number, K)
         return
 
     is_officer, officer_ids = isOfficer(entity)
     if is_officer is True:
         for officer_id in officer_ids:
-            searchTroikaOfficer(officer_id, K)
+            searchOfficer(officer_id, K)
 
 
-def searchTroikaCompany(company_number, K):
+def searchCompany(company_number, K):
 
     if K is 0: return
 
@@ -59,13 +65,10 @@ def searchTroikaCompany(company_number, K):
     # for each officer call searchTroikaOfficer(entity, K-1)
     officer_ids = [officerLink.value.split('/')[2] for officerLink in parse('$.items[*].links.officer.appointments').find(companyOfficers)]
     for officer_id in officer_ids:
-        searchTroikaOfficer(officer_id, K - 1)
+        searchOfficer(officer_id, K - 1)
 
 
-
-def searchTroikaOfficer(officer_id, K):
-
-    if K is 0: return
+def searchOfficer(officer_id, K):
 
     if officer_id in visited_officers:
         return
@@ -79,10 +82,28 @@ def searchTroikaOfficer(officer_id, K):
     # insert in the database
     insertOfficer(officer_id, json.dumps(appointments))
 
+    if K is 0: return
+
     # for each appointment get the company name and call searchTroikaCompany(company, K):
     appointments_company_numbers = parse('$.items[*].appointed_to.company_number').find(appointments)
     for company_number in appointments_company_numbers:
-        searchTroikaCompany(company_number.value, K)
+        searchCompany(company_number.value, K)
+
+
+def searchForValidCompanies(K):
+
+    df = pd.read_csv("Towns_List.csv")
+
+    for town in df['Town']:
+
+        log.debug('Getting {} companies for {} town'.format(K, town))
+
+        is_company, company_numbers = isCompany(town)
+        if is_company is True:
+            for idx, company_number in enumerate(company_numbers):
+                if K == idx:
+                    break
+                searchCompany(company_number.value, 1)
 
 def isCompany(entity):
 
@@ -93,7 +114,7 @@ def isCompany(entity):
     number_of_results = parse('$.total_results').find(response)
 
     if number_of_results[0].value > 0:
-        return True, parse('$.items[*].links[*].self').find(response)
+        return True, parse('$.items[*].company_number').find(response)
 
     return False, None
 
@@ -130,4 +151,6 @@ def getOfficerAppointments(officer_id):
     return response
 
 
-searchTroikaEntities('Cascado AG', 1)
+# searchTroikaEntities('Cascado AG', 1)
+
+searchForValidCompanies(15)
