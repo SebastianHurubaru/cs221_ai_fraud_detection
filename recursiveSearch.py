@@ -53,6 +53,7 @@ def searchCompany(company_number, K):
 
     # get company's persons with significant control
     pscs = getCompanyPersonsWithSignificantControl(company_number)
+    populatePSCData(pscs)
     log.debug(pscs)
 
     # get company's officers
@@ -128,6 +129,13 @@ def getCompanyPersonsWithSignificantControl(company_number):
 
     response = restClient.doRequest('/company/' + company_number + '/persons-with-significant-control', None)
     return response
+
+def populatePSCData(persons_with_significant_control):
+
+    psc_list = [psc.value for psc in parse('$.items[*]').find(json.loads(persons_with_significant_control))]
+    for psc in psc_list:
+        psc_id = parse('$.links.self').find(psc)[0].value.split('/')[-1]
+        insertPSC(psc_id, json.dumps(psc), 'good')
 
 
 def getCompanyOfficers(company_number):
