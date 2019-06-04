@@ -38,3 +38,10 @@ tags = {'EntityCurrentLegalOrRegisteredName': 'Company name',
 output_csv_file = 'output/features.csv'
 
 locale.setlocale(locale.LC_ALL, 'en_GB.UTF-8')
+
+numOfFeatures = 8
+numOfOutputs = 1
+numOfHiddenLayerUnits = (numOfFeatures + numOfOutputs) * 2
+batch_size = 64
+num_iterations = 500
+validation_split = 0.1
