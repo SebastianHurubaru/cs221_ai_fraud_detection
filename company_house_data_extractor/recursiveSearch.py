@@ -1,29 +1,16 @@
 from config import *
 from data.database import *
-
-
-log = logging.getLogger('backtrackSearch')
-
 from company_house_data_extractor.rest import RESTClient
 import json
 from jsonpath_ng import parse
+import requests
 
-
-
-MAX_REQ_FOR_KEY=500
-API_KEYS= [("0K5Fn3TguQ_1OdFoSuzQREVG7aee1OKSYS5Mj5ns", MAX_REQ_FOR_KEY),
-           ("CTdeE4B4nqb3vuip2jWQ4oMbajwC8uvlu-tSNLSs", MAX_REQ_FOR_KEY),
-           ("QAABDOuTedqG6Y3sS70242hguHxX8lXJ8bWuXjNs", MAX_REQ_FOR_KEY),
-           ("ieGbtv4XnrDE7ZsfrXlVatpW8K7z0S_hsdbpd3Wq", MAX_REQ_FOR_KEY)]
-
-TIMEOUT=300 #seconds
-BASE_URL="https://api.companieshouse.gov.uk"
+log = logging.getLogger('backtrackSearch')
 
 visited_officers = []
 visited_companies = []
 
 restClient = RESTClient(API_KEYS, TIMEOUT, BASE_URL)
-
 
 def searchTroikaEntities(entity, K):
 
@@ -61,8 +48,15 @@ def searchCompany(company_number, K):
     companyOfficers = getCompanyOfficers(company_number)
     log.debug(companyOfficers)
 
+    # get company's filing history
+    companyFilings = getCompanyFilings(company_number)
+    log.debug(companyFilings)
+    transaction_ids = parse('$.items[*].transaction_id').find(companyFilings)
+    for transaction_id in transaction_ids:
+        getFilingDocument(company_number, transaction_id.value)
+
     # insert in the database
-    insertCompany(company_number, json.dumps(companyProfile), json.dumps(companyOfficers), json.dumps(pscs))
+    insertCompany(company_number, json.dumps(companyProfile), json.dumps(companyOfficers), json.dumps(pscs), json.dumps(companyFilings))
 
     # for each officer call searchTroikaOfficer(entity, K-1)
     officer_ids = [officerLink.value.split('/')[2] for officerLink in parse('$.items[*].links.officer.appointments').find(companyOfficers)]
@@ -94,7 +88,7 @@ def searchOfficer(officer_id, K):
 
 def searchForValidCompanies(K):
 
-    df = pd.read_csv("Towns_List.csv")
+    df = pd.read_csv("../data/Towns_List.csv")
 
     for town in df['Town']:
 
@@ -130,6 +124,26 @@ def getCompanyPersonsWithSignificantControl(company_number):
 
     response = restClient.doRequest('/company/' + company_number + '/persons-with-significant-control', None)
     return response
+
+def getCompanyFilings(company_number):
+    response = restClient.doRequest('/company/' + company_number + '/filing-history', None)
+    return response
+
+def getFilingDocument(company_number, transaction_id, format='xhtml'):
+
+    session = requests.Session()
+
+    url = FILINGS_BASE_URL + '/' + company_number + '/filing-history/' + transaction_id + '/document'
+    params = {'format': format,
+              'download': '0'}
+
+    response = session.get(url, params=params)
+    if response.status_code == 200:
+        log.debug(response.text)
+        insertCompanyFiling(company_number, transaction_id, format, response.text)
+    else:
+        insertCompanyFiling(company_number, transaction_id, format, 'None')
+    session.close()
 
 def populatePSCData(persons_with_significant_control):
 
@@ -168,5 +182,5 @@ def fillVisitedCompanies():
 
 # searchTroikaEntities('Cascado AG', 100)
 
-fillVisitedCompanies()
-searchForValidCompanies(100)
+# fillVisitedCompanies()
+# searchForValidCompanies(100)

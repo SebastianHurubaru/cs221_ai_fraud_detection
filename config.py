@@ -4,7 +4,7 @@ import locale
 import pandas as pd
 
 logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+                    format='%(asctime)s %(name)-12s %(levelname)-8s %(thread)s %(message)s',
                     datefmt='%m-%d %H:%M:%S')
 
 # input_dir = 'input-dev'
@@ -45,3 +45,18 @@ numOfHiddenLayerUnits = (numOfFeatures + numOfOutputs) * 2
 batch_size = 64
 num_iterations = 500
 validation_split = 0.1
+
+MAX_REQ_FOR_KEY=500
+
+API_KEYS= [("0K5Fn3TguQ_1OdFoSuzQREVG7aee1OKSYS5Mj5ns", MAX_REQ_FOR_KEY),
+           ("CTdeE4B4nqb3vuip2jWQ4oMbajwC8uvlu-tSNLSs", MAX_REQ_FOR_KEY),
+           ("QAABDOuTedqG6Y3sS70242hguHxX8lXJ8bWuXjNs", MAX_REQ_FOR_KEY),
+           ("ieGbtv4XnrDE7ZsfrXlVatpW8K7z0S_hsdbpd3Wq", MAX_REQ_FOR_KEY)]
+
+TIMEOUT=300 #seconds
+BASE_URL="https://api.companieshouse.gov.uk"
+
+FILINGS_BASE_URL='https://beta.companieshouse.gov.uk/company'
+
+PROCESS_POOL_SIZE=16
+THREAD_POOL_SIZE=10
