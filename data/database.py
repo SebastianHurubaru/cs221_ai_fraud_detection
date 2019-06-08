@@ -56,7 +56,6 @@ def insertCompanyFiling(company_number, transaction_id, format, content):
     # cursor.execute(statement, (company_number, transaction_id, format, content))
 
     cursor = connection.cursor()
-    log.info('Saving')
     try:
         cursor.callproc("pINSERT_COMPANY_FILING",
                         [company_number, transaction_id, format, content])
@@ -67,7 +66,13 @@ def insertCompanyFiling(company_number, transaction_id, format, content):
 
     cursor.close()
 
-    log.info('Done saving')
+def insertPartialCompanyFiling(company_number, transaction_id, format, properties):
+
+    statement = 'MERGE INTO company_filing USING dual ON ( company_number=:2 AND transaction_id=:3 AND format=:4) \
+                WHEN MATCHED THEN UPDATE SET properties=:5  \
+                WHEN NOT MATCHED THEN INSERT (company_number, transaction_id, format, properties)  \
+                VALUES (:2, :3, :4, :5)'
+    cursor.execute(statement, (company_number, transaction_id, format, properties))
 
 def transactionExists(company_number, transaction_id, format='xhtml'):
 
@@ -96,6 +101,18 @@ def get_company_filing_transaction_ids(company_number):
             transaction_ids.append(item.value)
 
     return transaction_ids
+
+def get_company_filings(company_number):
+
+    cursor = connection.cursor()
+    statement = 'select filings from company where company_number = \'{}\''.format(company_number)
+
+    cursor.execute(statement)
+
+    for result in cursor:
+        return json.loads(result[0])
+
+    return None
 
 def get_all_company_numbers():
 
