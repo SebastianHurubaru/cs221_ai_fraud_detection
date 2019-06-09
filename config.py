@@ -39,7 +39,7 @@ output_csv_file = 'output/features.csv'
 
 locale.setlocale(locale.LC_ALL, 'en_GB.UTF-8')
 
-numOfFeatures = 8
+numOfFeatures = 9
 numOfOutputs = 1
 numOfHiddenLayerUnits = (numOfFeatures + numOfOutputs) * 2
 batch_size = 64
@@ -58,5 +58,5 @@ BASE_URL="https://api.companieshouse.gov.uk"
 
 FILINGS_BASE_URL='https://beta.companieshouse.gov.uk/company'
 
-PROCESS_POOL_SIZE=16
-THREAD_POOL_SIZE=10
+PROCESS_POOL_SIZE=100
+THREAD_POOL_SIZE=32

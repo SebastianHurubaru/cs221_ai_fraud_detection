@@ -4,12 +4,20 @@ from data.database import get_all_company_numbers
 import pandas as pd
 import json
 from jsonpath_ng import parse
+import numpy as np
+
+import deep_neural_network.feature_extractor
+
+import multiprocessing
 
 connection = cx_Oracle.connect("CS221", "CS221", "localhost/SEBI.168.86.68")
 
 log = logging.getLogger('feature_extractor.py')
 
+df = pd.read_csv('../data/company_debt_equity_data.csv', header=0, dtype=str)
 
+def initProcess(share):
+  deep_neural_network.feature_extractor.features_data = share
 
 def read_company(company_number):
 
@@ -62,27 +70,46 @@ def extract_features(company_number):
     result = parse('$.items[*].identification.legal_form').find(pscs)
     number_of_non_psc = len(result)
 
+    # feature 9: debt to equity ratio. Default to 10%
+    debt_to_equity = 0.1
+    if company_number in df['company_number'].values:
+        select_indices = list(np.where(df["company_number"] == company_number)[0])
+        debt = float(df.iloc[select_indices]['debt'].values[0])
+        equity = float(df.iloc[select_indices]['equity'].values[0])
+        debt_to_equity = debt / equity if equity != 0. else 0.
+
     # output: good(0) or bad(1)
     output = 0 if label == 'good' else 1
 
-    return [total_number_of_officers, number_of_active_officers, number_of_inactive_officers, number_of_non_persons_officers, total_number_of_psc, number_of_active_psc, number_of_ceased_psc, number_of_non_psc, output]
+    deep_neural_network.feature_extractor.features_data.append(
+        [company_number, total_number_of_officers, number_of_active_officers, number_of_inactive_officers,
+         number_of_non_persons_officers, total_number_of_psc, number_of_active_psc, number_of_ceased_psc,
+         number_of_non_psc, debt_to_equity, output])
+
+    log.debug('Finished extracting features for company {}'.format(company_number))
+
 
 def extract_features_for_all_companies(file_name):
 
-    data = []
-
     company_numbers = get_all_company_numbers()
-    for idx, company_number in enumerate(company_numbers):
-        log.info('Extracting features for {}'.format(company_number))
-        data.append([company_number] + extract_features(company_number))
-        log.info('Finished processing {} out of {} records'.format(idx + 1, len(company_numbers)))
 
-    df = pd.DataFrame(data)
+    manager = multiprocessing.Manager()
+    feature_data = manager.list()
+
+    transactionPool = multiprocessing.Pool(PROCESS_POOL_SIZE, initializer=initProcess, initargs=(feature_data,))
+    transactionPool.map(extract_features, company_numbers)
+    transactionPool.close()
+    transactionPool.join()
+
+    results = [data for data in feature_data]
+    df = pd.DataFrame(results)
     df.columns = ['Company number',
                   'Total number of officers', 'Number of active officers', 'Number of inactive officers', 'Number of non-persons officers',
-                  'Total number of person with significant control', 'Number of active persons with significant control', 'Number of ceased persons with significant control', 'Number of non-persons with significant control',
+                  'Total number of person with significant control', 'Number of active persons with significant control',
+                  'Number of ceased persons with significant control', 'Number of non-persons with significant control', 'Debt/Equity',
                   'Good/Bad']
 
     df.to_csv(file_name, index=False)
 
-extract_features_for_all_companies('../data/all_companies_features.csv')
+if __name__ == '__main__':
+    extract_features_for_all_companies('../data/all_companies_features.csv')

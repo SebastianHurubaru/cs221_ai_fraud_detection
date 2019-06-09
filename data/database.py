@@ -142,6 +142,37 @@ def get_no_filing_company_numbers():
 
     return company_numbers
 
+def get_companies_with_account_data():
+    cursor = connection.cursor()
+    statement = 'select distinct cf.company_number from company_filing cf where cf.properties.category = \'accounts\' and \
+                dbms_lob.compare(cf.content, \'Error\') <> 0 and \
+                dbms_lob.compare(cf.content, \'None\') <> 0'
+
+    cursor.execute(statement)
+
+    company_numbers = []
+    for result in cursor:
+        company_numbers.append(result[0])
+
+    return company_numbers
+
+def get_latest_account_for_company(company_number):
+    cursor = connection.cursor()
+    statement = 'select cf.content from company_filing cf where \
+                    cf.company_number = \'{}\' and \
+                    cf.properties.category = \'accounts\' and \
+                    dbms_lob.compare(cf.content, \'Error\') <> 0 and \
+                    dbms_lob.compare(cf.content, \'None\') <> 0 \
+                    order by JSON_VALUE(cf.properties, \'$.date\') desc \
+                    fetch first row only'.format(company_number)
+
+    cursor.execute(statement)
+
+    for result in cursor:
+        return result[0]
+
+    return None, None
+
 
 
 
