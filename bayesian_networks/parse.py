@@ -100,7 +100,7 @@ class BayesNet:
         true_labels = []
         false_labels = []
 
-        with open('test_data.csv') as csv_file:
+        with open(filename) as csv_file:
             csv_reader = csv.reader(csv_file, delimiter = ',')
 
             if skip_first == self.SKIP_FIRST:
