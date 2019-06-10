@@ -1,0 +1,26 @@
+from deep_neural_network.keras_neural_network import *
+import pandas as pd
+
+log = logging.getLogger('predict_reflex_model.py')
+
+def predict_reflex_model(test_data_file):
+
+    df = pd.read_csv(test_data_file)
+
+    myNeuralNetwork = KerasNeuralNetwork(numOfFeatures, numOfHiddenLayerUnits)
+    myNeuralNetwork.createModel()
+    myNeuralNetwork.loadWeights()
+
+    testX = df.values[:, 1:1 + numOfFeatures].reshape(1, df.values.shape[0], numOfFeatures)
+
+
+    testY = df.values[:, -1:].reshape(-1)
+
+    predY = (myNeuralNetwork.predictWithModel(testX) > 0.5).astype(int).reshape(-1)
+
+    df = pd.DataFrame({'Predicted': predY, 'True': testY})
+
+    df.to_csv('../data/pred_vs_true_testset.csv', index=False)
+
+
+predict_reflex_model('../data/test_data.csv')
