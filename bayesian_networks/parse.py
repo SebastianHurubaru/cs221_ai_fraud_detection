@@ -1,240 +1,144 @@
 import csv, re, collections
+import matplotlib.pyplot as plt
+import numpy as np
+from sklearn.metrics import confusion_matrix
+
+def discretize(val):
+    if val >= 0 and val < 0.25:
+        return 0
+    elif val < 0.50:
+        return 1
+    elif val < 0.75:
+        return 2
+    else:
+        return 3
+
+discrImpl = discretize
+CUTOFF_VALUE = 0.4
 
 
 class BayesNet:
-    def __init__(self):
-        self.countOfficers = collections.defaultdict(float)
-        self.countPSC = collections.defaultdict(float)
-        self.fraudulentCountOfficers = collections.defaultdict(float)
-        self.fraudulentCountPSC = collections.defaultdict(float)
+    SKIP_FIRST = 1
+    NO_SKIP_FIRST = 0
 
-        self.locOfficer = collections.defaultdict(float)
-        self.locPSC = collections.defaultdict(float)
-        self.fraudulentLocOfficer = collections.defaultdict(float)
-        self.fraudulentLocPSC = collections.defaultdict(float)
+    def __init__(self, discrImpl):
+        # required for post processing
+        self.discr = discrImpl
 
-        self.numEntries = 0
-        self.trainingSet = []
-        self.model = None
-
-    def processEntry(self, officers, officer_country, PSC, psc_country, label):
-        self.numEntries += 1
-        self.trainingSet.append((officers, officer_country, PSC, psc_country, label))
-
-        for officer in officers:
-            self.countOfficers[officer] += 1
-            if label == "bad":
-                self.fraudulentCountOfficers[officer] += 1
-
-        for country in officer_country:
-            self.locOfficer[country] += 1
-            if label == "bad":
-                self.fraudulentLocOfficer[country] += 1
-
-        for psc in PSC:
-            self.countPSC[psc] += 1
-            if label == "bad":
-                self.fraudulentCountPSC[psc] += 1
-
-        for country in psc_country:
-            self.locPSC[country] += 1
-            if label == "bad":
-                self.fraudulentLocPSC[country] += 1
-
-
-    def finalizeParsing(self):
-        maxCountOfficer = float(max(self.fraudulentCountOfficers.values()))
-        for officer in self.fraudulentCountOfficers:
-            self.fraudulentCountOfficers[officer] /= maxCountOfficer
-
-        maxCountPSC = float(max(self.fraudulentCountPSC.values()))
-        for psc in self.fraudulentCountPSC:
-            self.fraudulentCountPSC[psc] /= maxCountPSC
-
-        sumValues = sum(self.fraudulentLocOfficer.values())
-        for country in self.fraudulentLocOfficer:
-            self.fraudulentLocOfficer[country] /= sumValues
-
-        sumValues = sum(self.fraudulentLocPSC.values())
-        for country in self.fraudulentLocPSC:
-            self.fraudulentLocPSC[country] /= sumValues
-
-        self.maxOffLocScore = 0
-        self.maxPSCLocScore = 0
-
-        for i in self.trainingSet:
-            score = 0
-            for j in i[1]:
-                score += self.fraudulentLocOfficer[j]
-            if len(i[1]) != 0:
-                score /= float(len(i[1]))
-            else:
-                score = 0
-            if score > self.maxOffLocScore:
-                self.maxOffLocScore = score
-
-            score = 0
-            for j in i[3]:
-                score += self.fraudulentLocPSC[j]
-            if len(i[3]) != 0:
-                score /= float(len(i[3]))
-            else:
-                score = 0
-            if score > self.maxPSCLocScore:
-                self.maxPSCLocScore = score
-
-    def discretize(self, val):
-        if val > 0 and val < 0.25:
-            return 0
-        elif val < 0.50:
-            return 1
-        elif val < 0.75:
-            return 2
-        else:
-            return 3
-
-    def computeOS(self, officers):
-        freq = 0
-        for officer in officers:
-            freq += 1 if self.fraudulentCountOfficers[officer] else 0
-
-        return self.discretize(freq/float(len(officers))) if len(officers) else self.discretize(1/2.)
-
-    def computePS(self, PSC):
-        freq = 0
-        for psc in PSC:
-            freq += 1 if self.fraudulentCountPSC[psc] else 0
-
-        return self.discretize(freq/float(len(PSC))) if len(PSC) else self.discretize(1/2.)
-
-
-    def computeOCS(self, officer_countries):
-        score = 0
-
-        if len(officer_countries) == 0:
-            return self.discretize(1/2.)
-        for country in officer_countries:
-            score = self.fraudulentLocOfficer[country]
-
-        score = score/float(len(officer_countries))/self.maxOffLocScore
-        return self.discretize(score)
-
-    def computePCS(self, psc_countries):
-        score = 0
-
-        if len(psc_countries) == 0:
-            return self.discretize(1/2.)
-
-        for country in psc_countries:
-            score = self.fraudulentLocOfficer[country]
-
-        score = score/float(len(psc_countries))/self.maxPSCLocScore
-        return self.discretize(score)
-
-    def trainModel(self):
-        #self.trainingSet.append((officers, officer_country, PSC, psc_country, label))
+        # holds the trained model, i.e the number of samples that belong to each bucket
+        # the training is done using maximum likelihood probability estimation
         self.model = collections.defaultdict(int)
-        for i in self.trainingSet:
-            x = self.computeOS(i[0])
-            y = self.computePS(i[2])
-            z = self.computeOCS(i[1])
-            w = self.computePCS(i[3])
-            label = i[4]
-
-            self.model[((x, y, z, w), label)] += 1
-
-    def infer(self, officers, officer_country, PSC, psc_country):
-        x = self.computeOS(officers)
-        y = self.computePS(PSC)
-        z = self.computeOCS(officer_country)
-        w = self.computePCS(psc_country)
-
-        if self.model[((x, y, z, w), "bad")] + self.model[((x, y, z, w), "")] == 0:
-            return 1/2.
-
-        return self.model[((x, y, z, w), "bad")] / float(self.model[((x, y, z, w), '')] + self.model[((x, y, z, w), "bad")])
 
 
+    def partition(self, entry):
+        # PERCENTAGE CEASED OFFICERS
+        PCO = self.discr(float(entry[3])/float(entry[1])) if int(entry[1]) != 0 else self.discr(0)
 
-NUM_ENTRIES = 4200
-PERSON_FIND_REGEXP = '(?<=name\": \")[^\"]*'
-COUNTRY_FIND_REGEXP = '(?<=country\": \")[^\"]*'
-regexp = re.compile(PERSON_FIND_REGEXP)
-country_regexp = re.compile(COUNTRY_FIND_REGEXP)
+        # PERCENTAGE NON-PERSON OFFICERS
+        PNPO = self.discr(float(entry[4])/float(entry[1])) if int(entry[1]) != 0 else self.discr(0)
 
-newBayes = BayesNet()
-with open('company.csv') as csv_file:
-    csv_reader = csv.reader(csv_file, delimiter=',')
-    bad_num = 0
-    good_num = 0
-    flag = 0
-    for row in csv_reader:
-        if not flag:
-            flag = 1
-            continue
+        # PERCENTAGE CEASED PSC
+        PCP = self.discr(float(entry[7])/float(entry[5])) if int(entry[5]) != 0 else self.discr(0)
 
-        if bad_num > NUM_ENTRIES and good_num > NUM_ENTRIES:
-            break
-        elif row[4] == "bad" and bad_num <= NUM_ENTRIES:
-            bad_num += 1
-        elif row[4] != "bad" and good_num <= NUM_ENTRIES:
-            good_num += 1
-        else:
-            continue
+        # PERCENTAGE NON-PERSON PSC
+        PNPP = self.discr(float(entry[8])/float(entry[5])) if int(entry[5]) != 0 else self.discr(0)
 
-        officer_data = row[2]
-        psc_data = row[3]
-        label = row[4]
+        return (PCO, PNPO, PCP, PNPP)
 
-        
 
-        officers = regexp.findall(officer_data)
-        officer_country = country_regexp.findall(officer_data)
-        psc = regexp.findall(psc_data)
-        psc_country = country_regexp.findall(psc_data)
+    def processEntry(self, entry):
+        self.model[self.partition(entry), int(entry[10])] += 1
 
-        newBayes.processEntry(officers, officer_country, psc, psc_country, label)
-        
 
-newBayes.finalizeParsing()
-newBayes.trainModel()
-print newBayes.model
-with open('company.csv') as csv_file:
-    csv_reader = csv.reader(csv_file, delimiter=',')
-    bad_num = 0
-    good_num = 0
-    flag = 0
-    counter = 0
-    correct = 0
-    for row in csv_reader:
-        if not flag:
-            flag = 1
-            continue
 
-        if row[4] == "bad" and bad_num <= NUM_ENTRIES:
-            bad_num += 1
-            continue
-        elif row[4] != "bad" and good_num <= NUM_ENTRIES:
-            good_num += 1
-            continue
+    def infer(self, entry, laplace_value = 0):
+        probBadA = self.model[self.partition(entry), 1]
+        probGoodA = self.model[self.partition(entry), 0]
+        probBad = (probBadA + laplace_value) / float(probGoodA + probBadA + laplace_value) if float(probGoodA + probBadA + laplace_value) > 0 else 0.5
 
-        officer_data = row[2]
-        psc_data = row[3]
-        label = row[4]
+        return probBad
 
-        counter += 1
+    def trainModel(self, filename, skip_first):
+        with open(filename) as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter = ',')
 
-        
+            if skip_first == self.SKIP_FIRST:
+                next(csv_reader, None)
 
-        officers = regexp.findall(officer_data)
-        officer_country = country_regexp.findall(officer_data)
-        psc = regexp.findall(psc_data)
-        psc_country = country_regexp.findall(psc_data)
+            for row in csv_reader:
+                BayesModel.processEntry(row)
 
-        if newBayes.infer(officers, officer_country, psc, psc_country) > 0.5 and label == "bad":
-            correct += 1
-        elif newBayes.infer(officers, officer_country, psc, psc_country) < 0.5 and label != "bad":
-            correct += 1
 
-print counter
-print correct / float(counter)
+    def trainModelClean(self, filename):
+        self.model = collections.defaultdict(int)
+        self.trainModel(filename)
+
+
+    def testModel(self, filename, cutoff, skip_first):
+        correct = 0
+        wrong = 0
+
+        with open(filename) as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter = ',')
+
+            if skip_first == self.SKIP_FIRST:
+                next(csv_reader, None)
+
+            for row in csv_reader:
+                probBad = BayesModel.infer(row)
+
+                if probBad >= cutoff and int(row[10]):
+                    correct += 1
+                elif probBad < cutoff and not int(row[10]):
+                    correct += 1
+                else:
+                    wrong += 1
+
+        return correct / float(correct + wrong)
+
+    def construct_confusion_matrix(self, filename, cutoff, skip_first):
+        true_labels = []
+        false_labels = []
+
+        with open('test_data.csv') as csv_file:
+            csv_reader = csv.reader(csv_file, delimiter = ',')
+
+            if skip_first == self.SKIP_FIRST:
+                next(csv_reader, None)
+
+            for row in csv_reader:
+                true_labels.append(int(row[10]))
+                
+                probBad = BayesModel.infer(row)
+
+                if probBad >= cutoff:
+                    false_labels.append(1)
+                else:
+                    false_labels.append(0)
+
+        BayesNet.plot_confusion_matrix(confusion_matrix(true_labels, false_labels, labels=[0, 1]))
+
+    @staticmethod
+    def plot_confusion_matrix(cm, title = 'Confusion matrix for fraud estimation using Bayesian Networks'):
+        labels = ["Non-fraudulent", "Fraudulent"]
+        plt.imshow(cm, interpolation = 'nearest', cmap = plt.cm.Blues)
+        plt.title(title)
+        plt.colorbar()
+        tick_marks = np.arange(2)
+        plt.xticks(tick_marks, labels, rotation = 45)
+        plt.yticks(tick_marks, labels)
+        plt.tight_layout()
+        plt.ylabel('True label')
+        plt.xlabel('Predicted label')
+        plt.show()
+
+
+
+BayesModel = BayesNet(discrImpl)
+BayesModel.trainModel("train_data.csv", BayesModel.SKIP_FIRST)
+train_accuracy = BayesModel.testModel("test_data.csv", CUTOFF_VALUE, BayesModel.SKIP_FIRST)
+print train_accuracy
+test_accuracy = BayesModel.testModel("train_data.csv", CUTOFF_VALUE, BayesModel.SKIP_FIRST)
+print test_accuracy
+
+BayesModel.construct_confusion_matrix("test_data.csv", CUTOFF_VALUE, BayesModel.SKIP_FIRST)
